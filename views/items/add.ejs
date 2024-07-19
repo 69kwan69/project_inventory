@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <main>
+      <%- include('../partials/nav.ejs') %>
+
+      <h1>New item</h1>
+
+      <form action="add" enctype="multipart/form-data" method="post">
+        <input type="text" name="name" placeholder="Name" required />
+
+        <textarea
+          name="description"
+          placeholder="Description"
+          maxlength="500"
+          required
+        ></textarea>
+
+        <select name="category" required>
+          <option value="">Category</option>
+          <% categories.forEach(category => { %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+          <% }) %>
+        </select>
+
+        <input
+          type="number"
+          placeholder="Price"
+          name="price"
+          min="0"
+          required
+        />
+
+        <input
+          type="number"
+          placeholder="Stock"
+          name="stock"
+          min="0"
+          required
+        />
+
+        <input type="file" name="photo" />
+        <div>
+          <img class="image-placeholder" src="" alt="" />
+        </div>
+
+        <div>
+          <button type="submit">Create</button>
+          <a href="/items"><button type="button">Cancel</button></a>
+        </div>
+      </form>
+    </main>
+  </body>
+
+  <script>
+    document.querySelector('[name="photo"]').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const blob = URL.createObjectURL(file);
+      previewImage(blob);
+    });
+
+    function previewImage(src) {
+      document.querySelector('.image-placeholder').src = src;
+    }
+  </script>
+</html>

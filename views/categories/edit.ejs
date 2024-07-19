@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <main>
+      <%- include('../partials/nav.ejs') %>
+      <h1>Edit category</h1>
+      <form method="post" id="form-edit" data-edit="<%= category.id %>">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value="<%= category.name %>"
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          maxlength="500"
+          required
+        >
+<%= category.description %></textarea
+        >
+        <div>
+          <button type="submit">Confirm</button>
+          <a href="/categories/<%= category.id %>"><button>Cancel</button></a>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

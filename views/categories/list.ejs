@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <main>
+      <%- include('../partials/nav.ejs') %>
+
+      <div class="flex-header">
+        <h1>Categories</h1>
+        <a href="/categories/add"><button>Create</button></a>
+      </div>
+
+      <% if (categories.length > 0) { %>
+      <ul>
+        <% categories.forEach(({name, id}) => { %>
+        <li>
+          <a href="categories/<%= id %>"><%= name %></a>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else { %>
+      <div>Nothing to show here yet...</div>
+      <% } %>
+    </main>
+  </body>
+</html>

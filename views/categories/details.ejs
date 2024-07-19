@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <main>
+      <%- include('../partials/nav.ejs') %>
+
+      <div class="flex-header">
+        <h1><%= category.name %></h1>
+
+        <div>
+          <button data-remove="<%= category.id %>">Remove</button>
+          <a href="/categories/<%= category.id %>/edit"
+            ><button>Edit</button></a
+          >
+        </div>
+      </div>
+      <p><%= category.description %></p>
+      <a href="/categories">Return</a>
+    </main>
+
+    <script>
+      document.querySelector('[data-remove]').addEventListener('click', (e) => {
+        const sure = confirm('Are you sure?');
+        if (!sure) return;
+
+        const endpoint = `/categories/${e.currentTarget.dataset.remove}/remove`;
+        fetch(endpoint, { method: 'delete' })
+          .then((res) => res.json())
+          .then(({ redirect }) => (location.href = redirect))
+          .catch((error) => console.log(error));
+      });
+    </script>
+  </body>
+</html>

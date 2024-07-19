@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <main>
+      <%- include('../partials/nav.ejs') %>
+
+      <h1>Edit item</h1>
+
+      <form method="post" id="form-edit" data-edit="<%= item.id %>">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value="<%= item.name %>"
+          required
+        />
+
+        <textarea
+          name="description"
+          placeholder="Description"
+          maxlength="500"
+          required
+        ><%= item.description %></textarea
+        >
+        
+        <select name="category">
+          <% categories.forEach(category => { %>
+           <option <%= (item.category == category.id) ? 'selected' : '' %> value="<%= category.id %>"><%= category.name %></option>
+          <% }) %>
+        </select>
+
+        <input
+          type="number"
+          placeholder="Price"
+          name="price"
+          min="0"
+          value="<%= item.price %>"
+          required
+        />
+
+        <input
+          type="number"
+          placeholder="Stock"
+          name="stock"
+          min="0"
+          value="<%= item.stock %>"
+          required
+        />
+        
+        <input type="file" name="photo" >
+        <div>
+          <img class="image-placeholder" src='<%= item.photo %>' alt="" />
+        </div>
+
+        <div>
+          <button>Confirm</button>
+          <a href="/items/<%= item.id %>"><button type="button">Cancel</button></a>
+        </div>
+      </form>
+    </main>
+  </body>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // edit formdata's photo key
+      const photo = document.querySelector('.image-placeholder').src;
+      const body = new FormData(e.target);
+      body.set('photo', photo);
+
+      // post formdata
+      const res = await fetch(location.href, { method: 'post', body });
+
+      // redirect
+      if (res.ok) location.href = `/items/${e.target.dataset.edit}`;
+    });
+
+    document.querySelector('[name="photo"]').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => previewImage(reader.result);
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function previewImage(src) {
+      document.querySelector('.image-placeholder').src = src;
+    }
+  </script>
+</html>

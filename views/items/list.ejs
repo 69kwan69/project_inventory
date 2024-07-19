@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <main>
+      <%- include('../partials/nav.ejs') %>
+
+      <div class="flex-header">
+        <h1>Items</h1>
+        <a href="/items/add"><button>Create</button></a>
+      </div>
+      <% if (items.length > 0) { %>
+      <ul>
+        <% items.forEach(({name, id}) => { %>
+        <li>
+          <a href="items/<%= id %>"><%= name %></a>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else { %>
+      <p>Nothing to show here yet...</p>
+      <% } %>
+    </main>
+  </body>
+</html>
