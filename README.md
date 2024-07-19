@@ -8,6 +8,8 @@ This is a project assigned by TheOdinProject. For more information, please refer
 
 A simple web application that has every basic CRUD operations (create, reade, update, delete), in the format of managing items by category. This should be a basic foundation for my every future back-side related project.
 
+Now live on [Render](https://project-inventory-ds10.onrender.com).
+
 ![Screenshot](image.png)
 
 ## Attention
